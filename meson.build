@@ -1,10 +1,14 @@
-project('glfm', 'c',
+project('glfm', [ 'c' ],
         license: ['zlib'],
         default_options: ['c_std=c99'])
 
 version='0.9.0'
 
 compiler = meson.get_compiler('c')
+
+if compiler.get_define('__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__') != ''
+    add_languages('objc')
+endif
 
 libglfm_src = []
 libglfm_deps = []
@@ -30,6 +34,12 @@ libglfm_linkargs += [
   '-landroid',
   '-lEGL',
   '-lGLESv2'
+]
+
+elif compiler.get_define('__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__') != ''
+
+libglfm_src += [
+  'src/glfm_platform_ios.m',
 ]
 
 else
