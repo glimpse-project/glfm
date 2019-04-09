@@ -25,19 +25,15 @@
 #import <UIKit/UIKit.h>
 
 #include <dlfcn.h>
+
+#include <glfm_platform_ios.h>
+
 #include "glfm_platform.h"
 
 #define MAX_SIMULTANEOUS_TOUCHES 10
 
 #define CHECK_GL_ERROR() do { GLenum error = glGetError(); if (error != GL_NO_ERROR) \
 NSLog(@"OpenGL error 0x%04x at glfm_platform_ios.m:%i", error, __LINE__); } while(0)
-
-@interface GLFMAppDelegate : NSObject <UIApplicationDelegate>
-
-@property(nonatomic, strong) UIWindow *window;
-@property(nonatomic, assign) BOOL active;
-
-@end
 
 #pragma mark - GLFMView
 
@@ -810,11 +806,15 @@ NSLog(@"OpenGL error 0x%04x at glfm_platform_ios.m:%i", error, __LINE__); } whil
 
 #pragma mark - Main
 
+#if 0
+
 int main(int argc, char *argv[]) {
     @autoreleasepool {
         return UIApplicationMain(0, NULL, nil, NSStringFromClass([GLFMAppDelegate class]));
     }
 }
+
+#endif
 
 #pragma mark - GLFM implementation
 
